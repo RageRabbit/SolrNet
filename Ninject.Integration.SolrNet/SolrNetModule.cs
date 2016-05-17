@@ -194,6 +194,7 @@ namespace Ninject.Integration.SolrNet {
             {
                 Bind<ISolrStatusResponseParser>().To<SolrStatusResponseParser>();
                 Bind<ISolrCoreAdmin>().To<SolrCoreAdmin>();
+                Bind<ISolrCoreReplication>().To<SolrCoreReplication>();
 
                 foreach (var solrCore in cores)
                 {

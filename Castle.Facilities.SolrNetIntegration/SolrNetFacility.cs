@@ -129,6 +129,7 @@ namespace Castle.Facilities.SolrNetIntegration {
 
             Kernel.Register(Component.For<ISolrStatusResponseParser>().ImplementedBy<SolrStatusResponseParser>());
             Kernel.Register(Component.For<ISolrCoreAdmin>().ImplementedBy<SolrCoreAdmin>());
+            Kernel.Register(Component.For<ISolrCoreReplication>().ImplementedBy<SolrCoreReplication>());
 
             AddCoresFromConfig();
             foreach (var core in cores) {
