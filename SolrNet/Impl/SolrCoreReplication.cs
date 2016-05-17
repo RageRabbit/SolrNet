@@ -119,8 +119,7 @@ namespace SolrNet.Impl
         /// <returns></returns>
         public ReplicationStatusResponse SendAndParseStatus(ISolrCommand cmd)
         {
-            var r = Send(cmd);
-            var xml = XDocument.Parse(r);
+            var xml = SendAndParse(cmd);
             return statusParser.Parse(xml);
         }
 
@@ -131,8 +130,7 @@ namespace SolrNet.Impl
         /// <returns></returns>
         public ReplicationIndexVersionResponse SendAndParseIndexVersion(ISolrCommand cmd)
         {
-            var r = Send(cmd);
-            var xml = XDocument.Parse(r);
+            var xml = SendAndParse(cmd);
             return indexversionParser.Parse(xml);
         }
 
@@ -143,16 +141,27 @@ namespace SolrNet.Impl
         /// <returns></returns>
         public ReplicationDetailsResponse SendAndParseDetails(ISolrCommand cmd)
         {
-            var r = Send(cmd);
-            var xml = XDocument.Parse(r);
+            var xml = SendAndParse(cmd);
             return detailsParser.Parse(xml);
+        }
+
+        /// <summary>
+        /// Sends the specified Command to Solr and parses it into XDocument
+        /// </summary>
+        /// <param name="cmd">The Command to send.</param>
+        /// <returns>command response as a XDocument</returns>
+        public XDocument SendAndParse(ISolrCommand cmd)
+        {
+            var responseStr = Send(cmd);
+            var responseDoc = XDocument.Parse(responseStr);
+            return responseDoc;
         }
 
         /// <summary>
         /// Sends the specified Command to Solr.
         /// </summary>
         /// <param name="command">The Command to send.</param>
-        /// <returns></returns>
+        /// <returns>command response as a string</returns>
         public string Send(ISolrCommand command) {
             return command.Execute(connection);
         }
