@@ -126,6 +126,25 @@ namespace SolrNet {
 
             var coreAdminKey = typeof(ISolrCoreAdmin).Name + connectionKey;
             Container.Register<ISolrCoreAdmin>(coreAdminKey, c => new SolrCoreAdmin(connection, c.GetInstance<ISolrHeaderResponseParser>(), c.GetInstance<ISolrStatusResponseParser>()));
+
+            #region register ISolrCoreReplication and related response headers (ISolrReplicationStatusResponseParser, ISolrReplicationIndexVersionResponseParser and ISolrReplicationDetailsResponseParser)
+
+            var solrReplicationStatusResponseParserKey = typeof(ISolrReplicationStatusResponseParser).Name + connectionKey;
+            Container.Register<ISolrReplicationStatusResponseParser>(solrReplicationStatusResponseParserKey, c => new ReplicationStatusResponseParser<T>());
+
+            var solrReplicationIndexVersionResponseParserKey = typeof(ISolrReplicationIndexVersionResponseParser).Name + connectionKey;
+            Container.Register<ISolrReplicationIndexVersionResponseParser>(solrReplicationIndexVersionResponseParserKey, c => new ReplicationIndexVersionResponseParser<T>());
+
+            var solrReplicationDetailsResponseParserKey = typeof(ISolrReplicationDetailsResponseParser).Name + connectionKey;
+            Container.Register<ISolrReplicationDetailsResponseParser>(solrReplicationDetailsResponseParserKey, c => new ReplicationDetailsResponseParser<T>());
+
+            var coreReplicationKey = typeof(ISolrCoreReplication).Name + connectionKey;
+            Container.Register<ISolrCoreReplication>(coreReplicationKey, c => new SolrCoreReplication(connection, 
+                c.GetInstance<ISolrReplicationStatusResponseParser>(), 
+                c.GetInstance<ISolrReplicationIndexVersionResponseParser>(), 
+                c.GetInstance<ISolrReplicationDetailsResponseParser>()));
+
+            #endregion
         }
 
         private static ISolrDocumentSerializer<T> ChooseDocumentSerializer<T>(IServiceLocator c) {
