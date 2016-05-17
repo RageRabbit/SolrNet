@@ -116,17 +116,18 @@
     <Compile Include="Commands\Parameters\TermsSort.cs" />
     <Compile Include="Commands\Parameters\TermVectorParameters.cs" />
     <Compile Include="Impl\DebugResults.cs" />
-    <Compile Include="Impl\ReplicationDetailsResponse.cs" />
-    <Compile Include="Impl\ISolrReplicationDetailsResponseParser.cs" />
-    <Compile Include="Impl\ISolrReplicationIndexVersionResponseParser.cs" />
-    <Compile Include="Impl\ISolrReplicationStatusResponseParser.cs" />
-    <Compile Include="Impl\ReplicationStatusResponse.cs" />
-    <Compile Include="Impl\ReplicationIndexVersionResponse.cs" />
+    <Compile Include="Impl\ReplicationResponse\ReplicationDetailsResponse.cs" />
+    <Compile Include="Impl\ReplicationResponse\Parsers\Interfaces\ISolrReplicationDetailsResponseParser.cs" />
+    <Compile Include="Impl\ReplicationResponse\Parsers\Interfaces\ISolrReplicationIndexVersionResponseParser.cs" />
+    <Compile Include="Impl\ReplicationResponse\Parsers\Interfaces\ISolrReplicationStatusResponseParser.cs" />
+    <Compile Include="Impl\ReplicationResponse\ReplicationStatusResponse.cs" />
+    <Compile Include="Impl\ReplicationResponse\ReplicationIndexVersionResponse.cs" />
     <Compile Include="Impl\ResponseParsers\DebugResponseParser.cs" />
     <Compile Include="Impl\ResponseParsers\CollapseExpandResponseParser.cs" />
-    <Compile Include="Impl\ResponseParsers\ReplicationDetailsResponseParser.cs" />
-    <Compile Include="Impl\ResponseParsers\ReplicationIndexVersionResponseParser.cs" />
-    <Compile Include="Impl\ResponseParsers\ReplicationStatusResponseParser.cs" />
+    <Compile Include="Impl\ReplicationResponse\Parsers\ReplicationAbstractResponseParser.cs" />
+    <Compile Include="Impl\ReplicationResponse\Parsers\ReplicationDetailsResponseParser.cs" />
+    <Compile Include="Impl\ReplicationResponse\Parsers\ReplicationIndexVersionResponseParser.cs" />
+    <Compile Include="Impl\ReplicationResponse\Parsers\ReplicationStatusResponseParser.cs" />
     <Compile Include="ISolrCoreReplication.cs" />
     <Compile Include="Impl\SolrCoreReplication.cs" />
     <Compile Include="Impl\FieldParsers\DateTimeOffsetFieldParser.cs" />
@@ -381,12 +382,6 @@
     <Compile Include="Utils\X.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HttpWebAdapters\HttpWebAdapters.csproj">
-      <Project>{AE7D2A46-3F67-4986-B04B-7DCE79A549A5}</Project>
-      <Name>HttpWebAdapters</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -403,6 +398,13 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HttpWebAdapters\HttpWebAdapters.csproj">
+      <Project>{ae7d2a46-3f67-4986-b04b-7dce79a549a5}</Project>
+      <Name>HttpWebAdapters</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
